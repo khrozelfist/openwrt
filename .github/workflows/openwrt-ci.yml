@@ -58,7 +58,7 @@ jobs:
       - name: Git Clone
         run: |
           git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
-          git clone https://github.com/v2rayA/v2raya-openwrt package/net/v2raya
+          # git clone https://github.com/v2rayA/v2raya-openwrt package/net/v2raya
 
       - name: Space cleanup
         env:
@@ -209,7 +209,7 @@ jobs:
           CONFIG_PACKAGE_collectd-mod-dns=y
           CONFIG_PACKAGE_xray-core=y
           CONFIG_PACKAGE_v2raya=y
-          CONFIG_PACKAGE_sing-box=y
+          # CONFIG_PACKAGE_sing-box=y
           # CONFIG_PACKAGE_logd=n
           # CONFIG_PACKAGE_syslog-ng=y
           # CONFIG_PACKAGE_rp-pppoe-relay=y
