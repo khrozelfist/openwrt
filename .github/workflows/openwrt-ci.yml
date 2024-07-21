@@ -208,7 +208,7 @@ jobs:
           CONFIG_PACKAGE_collectd-mod-ping=y
           CONFIG_PACKAGE_collectd-mod-dns=y
           CONFIG_PACKAGE_xray-core=y
-          CONFIG_PACKAGE_v2raya=y
+          # CONFIG_PACKAGE_v2raya=y
           # CONFIG_PACKAGE_sing-box=y
           # CONFIG_PACKAGE_logd=n
           # CONFIG_PACKAGE_syslog-ng=y
