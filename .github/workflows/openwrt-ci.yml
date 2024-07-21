@@ -1,9 +1,9 @@
 #
 # This is free software, lisence use MIT.
-# 
+#
 # Copyright (C) 2019 P3TERX <https://p3terx.com>
 # Copyright (C) 2020 KFERMercer <KFER.Mercer@gmail.com>
-# 
+#
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
@@ -11,7 +11,7 @@ name: OpenWrt-CI
 
 on:
   push:
-    branches: 
+    branches:
       - main
   # schedule:
   #   - cron: 0 20 * * *
@@ -117,7 +117,7 @@ jobs:
           sed -i 's/CONFIG_SDK_LLVM_BPF=y/CONFIG_SDK_LLVM_BPF=n/' ./.config
           sed -i 's/CONFIG_TARGET_ALL_PROFILES=y/CONFIG_TARGET_ALL_PROFILES=n/' ./.config
           sed -i 's/CONFIG_USE_LLVM_BUILD=y/CONFIG_USE_LLVM_BUILD=n/' ./.config
-          
+
           sed -i '/CONFIG_KERNEL_BUILD_DOMAIN/d' ./.config
           sed -i '/CONFIG_KERNEL_BUILD_USER/d' ./.config
 
@@ -125,14 +125,14 @@ jobs:
           # curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_TARGET_ >> ./.config
           # curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_PACKAGE_ >> ./.config
           # curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_VERSION >> ./.config
-          
+
           # sed -i 's/CONFIG_TARGET_MULTI_PROFILE=y/CONFIG_TARGET_MULTI_PROFILE=n/' ./.config
           # sed -i 's/CONFIG_TARGET_PER_DEVICE_ROOTFS=y/CONFIG_TARGET_PER_DEVICE_ROOTFS=n/' ./.config
           # sed -i 's/CONFIG_TARGET_ALL_PROFILES=y/CONFIG_TARGET_ALL_PROFILES=n/' ./.config
 
           echo CONFIG_KERNEL_BUILD_DOMAIN="Azure" >> ./.config
           echo CONFIG_KERNEL_BUILD_USER="OpenWrt-CI" >> ./.config
-          
+
           cat >> .config <<EOF
           # CONFIG_VHDX_IMAGES=y
           # CONFIG_GRUB_EFI_IMAGES=y
@@ -154,7 +154,7 @@ jobs:
           # CONFIG_PACKAGE_qemu-bridge-helper=y
           # CONFIG_PACKAGE_qemu-img=y
           # EOF
-          
+
           cat >> .config <<EOF
           CONFIG_PACKAGE_kmod-bnx2x=y
           CONFIG_PACKAGE_kmod-mt7921e=y
@@ -230,7 +230,7 @@ jobs:
 
           #
           # ===============================================================
-          # 
+          #
 
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
@@ -261,10 +261,10 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
-          
-          # rm -rf $(find ./artifact/firmware/ -type f -name "*.tar.gz") 
+
+          # rm -rf $(find ./artifact/firmware/ -type f -name "*.tar.gz")
           # rm -rf $(find ./artifact/firmware/ -type f -name "*.bin")
-          rm -rf $(find ./artifact/firmware/ -type f -name "*.img*" | grep -v "combined-efi") 
+          rm -rf $(find ./artifact/firmware/ -type f -name "*.img*" | grep -v "combined-efi")
 
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v4
