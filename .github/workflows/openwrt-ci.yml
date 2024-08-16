@@ -51,9 +51,8 @@ jobs:
 
       - name: Add Patch
         run: |
-          for patches in $(ls ./target/linux/x86/ | grep patches-);do
-            wget -O ./target/linux/x86/$patches/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-          done
+          wget -O $(ls -d ./target/linux/x86/patches-*)/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
+          wget -O $(ls -d ./target/linux/x86/patches-*)/600-fix-among-match.patch https://git.netfilter.org/iptables/patch/?id=eddbb27651b93ac6f329bf8113223e7360ea7613
 
       - name: Git Clone
         run: |
