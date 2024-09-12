@@ -90,6 +90,7 @@ jobs:
       - name: Other
         run: |
           sed -i '/DEFAULT:=n/d' feeds/packages/net/rp-pppoe/Makefile
+          sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
 
       - name: Generate configuration file
         run: |
