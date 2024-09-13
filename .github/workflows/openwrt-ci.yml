@@ -67,7 +67,7 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Other
+      - name: Other Post
         run: |
           sed -i '/DEFAULT:=n/d' feeds/packages/net/rp-pppoe/Makefile
           # sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
@@ -208,11 +208,6 @@ jobs:
           # CONFIG_PACKAGE_luci-app-nlbwmon=y
           EOF
 
-          #
-          # ===============================================================
-          #
-
-          sed -i 's/^[ \t]*//g' ./.config
           make defconfig
 
       - name: Make download
@@ -263,12 +258,3 @@ jobs:
         with:
           name: OpenWrt_firmware
           path: ./artifact/firmware/
-
-      - name: Upload release asset
-        if: github.event == 'release'
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.YOURTOKEN }}
-          file: ./artifact/firmware/*
-          tag: ${{ github.ref }}
-          file_glob: true
