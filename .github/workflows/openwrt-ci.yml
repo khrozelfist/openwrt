@@ -1,10 +1,10 @@
 name: OpenWrt-CI
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
+  # push:
+  # branches:
+  #   - main
   # schedule:
   #   - cron: 0 20 * * *
   
