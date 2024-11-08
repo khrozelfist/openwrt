@@ -30,19 +30,19 @@ jobs:
           ref: ${{ env.tag }}
 
       - name: Add Patch
-        run: |
+        run : |
           # wget -O $(ls -d ./target/linux/x86/patches-*)/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
           # wget -O ./package/network/utils/iptables/patches/600-fix-among-match.patch https://git.netfilter.org/iptables/patch/?id=eddbb27651b93ac6f329bf8113223e7360ea7613
 
       - name: Git Clone
-        run: |
+        run : |
           git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
           # git clone https://github.com/v2rayA/v2raya-openwrt package/net/v2raya
 
       - name: Space cleanup
-        env:
+        env :
           DEBIAN_FRONTEND: noninteractive
-        run: |
+        run : |
           docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
@@ -63,17 +63,17 @@ jobs:
           df -h
 
       - name: Update feeds
-        run: |
+        run : |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Other Post
-        run: |
+        run : |
           sed -i '/DEFAULT:=n/d' feeds/packages/net/rp-pppoe/Makefile
           # sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
 
       - name: Generate configuration file
-        run: |
+        run : |
           ver=$(echo ${{ env.tag }} | cut -c 2-)
           rm -f ./.config*
           wget -O .config https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo
@@ -211,13 +211,13 @@ jobs:
           make defconfig
 
       - name: Make download
-        run: |
+        run : |
           make download -j8 || make download -j1 V=s
           rm -rf $(find ./dl/ -size -1024c)
           df -h
 
       - name: Compile firmware
-        run: |
+        run : |
           make -j$(nproc) || make -j1 V=s
           echo "======================="
           echo "Space usage:"
@@ -228,7 +228,7 @@ jobs:
           du -h /mnt/openwrt/ --max-depth=1 || true
 
       - name: Prepare artifact
-        run: |
+        run : |
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
