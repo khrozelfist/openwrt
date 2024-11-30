@@ -44,6 +44,8 @@ jobs:
           sed -i '/CONFIG_KERNEL_BUILD_DOMAIN/d' ./.config
           sed -i '/CONFIG_KERNEL_BUILD_USER/d' ./.config
 
+          make defconfig
+
       - name: Make download
         run : |
           make download -j8 || make download -j1 V=s
