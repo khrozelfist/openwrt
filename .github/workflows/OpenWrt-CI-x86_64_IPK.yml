@@ -54,8 +54,8 @@ jobs:
 
       - name: Compile toolchain
         run : |
-          # make -j$(nproc) tools/install
-          # make -j$(nproc) toolchain/install
+          make -j$(nproc) tools/install
+          make -j$(nproc) toolchain/install
 
       - name: Compile IPK
         run : |
