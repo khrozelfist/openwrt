@@ -37,7 +37,7 @@ jobs:
       - name: Git Clone
         run : |
           git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
-          git clone https://github.com/MIAOBUSI/luci-app-adguardhome package/luck/luci-app-adguardhome
+          git clone https://github.com/MIAOBUSI/luci-app-adguardhome package/luci-app-adguardhome
           # git clone https://github.com/v2rayA/v2raya-openwrt package/net/v2raya
 
       - name: Space cleanup
