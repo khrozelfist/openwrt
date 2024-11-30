@@ -24,49 +24,25 @@ jobs:
         with:
           ref: ${{ env.tag }}
 
-      - name: Add Patch
-        run : |
-          # wget -O $(ls -d ./target/linux/x86/patches-*)/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-          # wget -O ./package/network/utils/iptables/patches/600-fix-among-match.patch https://git.netfilter.org/iptables/patch/?id=eddbb27651b93ac6f329bf8113223e7360ea7613
-
       - name: Git Clone
         run : |
           # git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
           git clone https://github.com/MIAOBUSI/luci-app-adguardhome package/luci/luci-app-adguardhome
           # git clone https://github.com/v2rayA/v2raya-openwrt package/net/v2raya
 
-      - name: Space cleanup
-        env :
-          DEBIAN_FRONTEND: noninteractive
-        run : |
-          docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-          sudo -E apt-get update
-          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig libtinfo5
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
-
-          sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
-          ln -s /mnt/openwrt/bin ./bin
-          mkdir -p ./build_dir
-          ln -s -f /mnt/openwrt/build_dir/host ./build_dir/host
-          ln -s -f /mnt/openwrt/build_dir/hostpkg ./build_dir/hostpkg
-          ln -s /mnt/openwrt/dl ./dl
-          ln -s /mnt/openwrt/feeds ./feeds
-          ln -s /mnt/openwrt/staging_dir ./staging_dir
-
-          df -h
-
       - name: Update feeds
         run : |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Other Post
+      - name: Generate configuration file
         run : |
-          sed -i '/DEFAULT:=n/d' feeds/packages/net/rp-pppoe/Makefile
-          # sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
+          ver=$(echo ${{ env.tag }} | cut -c 2-)
+          rm -f ./.config*
+          wget -O .config https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo
+
+          sed -i '/CONFIG_KERNEL_BUILD_DOMAIN/d' ./.config
+          sed -i '/CONFIG_KERNEL_BUILD_USER/d' ./.config
 
       - name: Make download
         run : |
@@ -76,14 +52,10 @@ jobs:
 
       - name: Compile IPK
         run : |
+          make tools/install
+          make toolchain/install
+
           make package/luci/luci-app-adguardhome
-          echo "======================="
-          echo "Space usage:"
-          echo "======================="
-          df -h
-          echo "======================="
-          du -h ./ --max-depth=1
-          du -h /mnt/openwrt/ --max-depth=1 || true
 
       - name: Deliver IPK
         uses: actions/upload-artifact@v4
