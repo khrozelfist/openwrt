@@ -60,9 +60,10 @@ jobs:
       - name: Compile IPK
         run : |
           make -j$(nproc) package/luci/luci-app-adguardhome/compile
+          make -j$(nproc) package/index
 
       - name: Deliver IPK
         uses: actions/upload-artifact@v4
         with:
           name: OpenWrt_buildinfo
-          path: ./bin/
+          path: ./bin/packages/
