@@ -57,7 +57,7 @@ jobs:
           make -j$(nproc) tools/install
           make -j$(nproc) toolchain/install
 
-          make -j$(nproc) package/luci/luci-app-adguardhome
+          make -j$(nproc) package/luci/luci-app-adguardhome/compile
 
       - name: Deliver IPK
         uses: actions/upload-artifact@v4
