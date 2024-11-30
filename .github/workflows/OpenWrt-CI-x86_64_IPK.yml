@@ -52,10 +52,10 @@ jobs:
 
       - name: Compile IPK
         run : |
-          make tools/install
-          make toolchain/install
+          make -j$(nproc) tools/install
+          make -j$(nproc) toolchain/install
 
-          make package/luci/luci-app-adguardhome
+          make -j$(nproc) package/luci/luci-app-adguardhome
 
       - name: Deliver IPK
         uses: actions/upload-artifact@v4
