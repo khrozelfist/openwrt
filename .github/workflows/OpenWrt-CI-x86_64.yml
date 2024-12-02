@@ -160,6 +160,8 @@ jobs:
           CONFIG_PACKAGE_iperf3=y
           CONFIG_PACKAGE_fdisk=y
           CONFIG_PACKAGE_parted=y
+          CONFIG_PACKAGE_losetup=y
+          CONFIG_PACKAGE_resize2fs=y
           CONFIG_PACKAGE_lsblk=y
           CONFIG_PACKAGE_blkid=y
           CONFIG_PACKAGE_block-mount=y
