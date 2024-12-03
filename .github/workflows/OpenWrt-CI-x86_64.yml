@@ -209,7 +209,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-statistics=y
           CONFIG_PACKAGE_luci-app-natmap=y
           CONFIG_PACKAGE_luci-app-upnp=y
-          CONFIG_PACKAGE_luci-app-dockerman=y
+          # CONFIG_PACKAGE_luci-app-dockerman=y
           # CONFIG_PACKAGE_luci-app-dawn=y
           # CONFIG_PACKAGE_luci-app-nlbwmon=y
           EOF
