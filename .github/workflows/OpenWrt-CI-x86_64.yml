@@ -73,11 +73,9 @@ jobs:
           # sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
 
           mkdir -p ./files/etc/uci-defaults
-          mkdir -p ./files/usr/bin
           curl -Lso /tmp/gost.tar.gz https://github.com/ginuerzh/gost/releases/download/v2.12.0/gost_2.12.0_linux_amd64v3.tar.gz
-          tar xzf /tmp/gost.tar.gz gost -C ./files/usr/bin
-          ls ./files/usr/bin
-          echo chmod +x /usr/bin/gost > ./files/etc/uci-defaults/99-gost
+          tar xzf /tmp/gost.tar.gz gost -C ./files/etc/uci-defaults
+          echo 'mv /etc/uci-defaults/gost /usr/bin/gost; chmod +x /usr/bin/gost' > ./files/etc/uci-defaults/99-gost
 
       - name: Generate configuration file
         run : |
@@ -245,7 +243,7 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
 
           # rm -rf $(find ./artifact/firmware/ -type f -name "*.tar.gz")
-          # rm -rf $(find ./artifact/firmware/ -type f -name "*.bin")
+          rm -rf $(find ./artifact/firmware/ -type f -name "*.bin")
           rm -rf $(find ./artifact/firmware/ -type f -name "*.img*" | grep -v "combined-efi")
 
       - name: Deliver buildinfo
