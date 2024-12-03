@@ -150,6 +150,7 @@ jobs:
           CONFIG_PACKAGE_coreutils=y
           CONFIG_PACKAGE_coreutils-base64=y
           CONFIG_PACKAGE_ca-certificates=y
+          CONFIG_PACKAGE_sha1sum=y
           CONFIG_PACKAGE_dnsmasq=n
           CONFIG_PACKAGE_dnsmasq-full=y
           CONFIG_PACKAGE_ethtool-full=y
