@@ -67,10 +67,10 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Other
+      - name: Post-feeds
         run : |
-          sed -i '/DEFAULT:=n/d' feeds/packages/net/rp-pppoe/Makefile
-          # sed -i 's/LOG info "Check/#LOG info "Check/' feeds/packages/net/mwan3/files/usr/sbin/mwan3track
+          sed -i '/DEFAULT:=n/d' ./feeds/packages/net/rp-pppoe/Makefile
+          # sed -i 's/LOG info "Check/#LOG info "Check/' ./feeds/packages/net/mwan3/files/usr/sbin/mwan3track
 
           mkdir -p ./files/etc/uci-defaults
           curl -Lso /tmp/gost.tar.gz https://github.com/ginuerzh/gost/releases/download/v2.12.0/gost_2.12.0_linux_amd64v3.tar.gz
@@ -209,7 +209,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-statistics=y
           CONFIG_PACKAGE_luci-app-natmap=y
           CONFIG_PACKAGE_luci-app-upnp=y
-          # CONFIG_PACKAGE_luci-app-dockerman=y
+          CONFIG_PACKAGE_luci-app-dockerman=y
           # CONFIG_PACKAGE_luci-app-dawn=y
           # CONFIG_PACKAGE_luci-app-nlbwmon=y
           EOF
