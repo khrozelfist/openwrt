@@ -78,7 +78,7 @@ jobs:
           tar xzf /tmp/gost.tar.gz gost -C ./files/usr/bin
           ls ./files/usr/bin
           echo chmod +x /usr/bin/gost > ./files/etc/uci-defaults/99-gost
-          pause
+          read -p "wait ..."
 
       - name: Generate configuration file
         run : |
