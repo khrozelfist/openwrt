@@ -2,11 +2,6 @@ name: OpenWrt-CI-x86_64
 
 on:
   workflow_dispatch:
-  # push:
-  # branches:
-  #   - main
-  # schedule:
-  #   - cron: 0 20 * * *
   
 jobs:
   build_openwrt:
@@ -24,10 +19,14 @@ jobs:
           git push --tags
           echo "tag=$(git tag | sort | tail -1)" >> $GITHUB_ENV
 
-      - name: Checkout to tag
+      - name: Checkout newest
         uses: actions/checkout@v4
         with:
           ref: ${{ env.tag }}
+
+      - name: Test
+        run : |
+          # read -p "pause"
 
       - name: Add Patch
         run : |
@@ -75,12 +74,9 @@ jobs:
           mkdir -p ./files/etc/uci-defaults
           mkdir -p ./files/usr/bin
           curl -Lo /tmp/gost.tar.gz https://github.com/ginuerzh/gost/releases/download/v2.12.0/gost_2.12.0_linux_amd64v3.tar.gz
-          tar xzf /tmp/gost.tar.gz gost -C ./files/usr/bin
           tar xzf /tmp/gost.tar.gz -C /tmp
-          ls ./files/usr/bin
-          ls /tmp
+          mv /tmp/gost ./files/usr/bin/gost
           echo chmod +x /usr/bin/gost > ./files/etc/uci-defaults/99-gost
-          read -p "wait ..."
 
       - name: Generate configuration file
         run : |
@@ -154,8 +150,8 @@ jobs:
           CONFIG_PACKAGE_wpad-mbedtls=y
           CONFIG_PACKAGE_coreutils=y
           CONFIG_PACKAGE_coreutils-base64=y
-          CONFIG_PACKAGE_ca-certificates=y
           CONFIG_PACKAGE_coreutils-sha1sum=y
+          CONFIG_PACKAGE_ca-certificates=y
           CONFIG_PACKAGE_dnsmasq=n
           CONFIG_PACKAGE_dnsmasq-full=y
           CONFIG_PACKAGE_ethtool-full=y
