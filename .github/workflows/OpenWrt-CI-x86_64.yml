@@ -18,6 +18,7 @@ jobs:
           git fetch --tags https://github.com/openwrt/openwrt.git
           git push --tags
           echo "tag=$(git tag | sort | tail -1)" >> $GITHUB_ENV
+          echo "sha=$(date | sha1sum | cut -c -8)" >> $GITHUB_ENV
 
       - name: Checkout newest
         uses: actions/checkout@v4
@@ -250,17 +251,17 @@ jobs:
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_buildinfo
+          name: OpenWrt_buildinfo_${{ env.sha }}
           path: ./artifact/buildinfo/
 
       - name: Deliver package
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_package
+          name: OpenWrt_package_${{ env.sha }}
           path: ./artifact/package/
 
       - name: Deliver firmware
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_firmware
+          name: OpenWrt_firmware_${{ env.sha }}
           path: ./artifact/firmware/
