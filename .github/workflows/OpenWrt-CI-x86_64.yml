@@ -251,17 +251,17 @@ jobs:
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_buildinfo_${{ env.sha }}
+          name: buildinfo_${{ env.tag }}_${{ env.sha }}
           path: ./artifact/buildinfo/
 
       - name: Deliver package
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_package_${{ env.sha }}
+          name: package_${{ env.tag }}_${{ env.sha }}
           path: ./artifact/package/
 
       - name: Deliver firmware
         uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_firmware_${{ env.sha }}
+          name: firmware_${{ env.tag }}_${{ env.sha }}
           path: ./artifact/firmware/
