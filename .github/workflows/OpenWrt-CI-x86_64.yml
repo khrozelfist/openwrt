@@ -147,6 +147,7 @@ jobs:
           CONFIG_PACKAGE_kmod-nft-tproxy=y
           CONFIG_PACKAGE_kmod-nft-netdev=y
           CONFIG_PACKAGE_bnx2x-firmware=y
+          CONFIG_PACKAGE_libcap-bin=y
           CONFIG_PACKAGE_wpad-mbedtls=y
           CONFIG_PACKAGE_coreutils=y
           CONFIG_PACKAGE_coreutils-base64=y
