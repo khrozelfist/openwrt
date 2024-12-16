@@ -106,9 +106,7 @@ jobs:
           # sed -i '/CONFIG_KERNEL_BUILD_DOMAIN/d' ./.config
           # sed -i '/CONFIG_KERNEL_BUILD_USER/d' ./.config
 
-          curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_TARGET_ >> ./.config
-          curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_PACKAGE_ >> ./.config
-          curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep CONFIG_VERSION >> ./.config
+          curl https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo | grep -e _TARGET_ -e _PACKAGE_ -e _VERSION_ >> ./.config
           sed -i 's/CONFIG_TARGET_MULTI_PROFILE=y/CONFIG_TARGET_MULTI_PROFILE=n/' ./.config
           sed -i 's/CONFIG_TARGET_PER_DEVICE_ROOTFS=y/CONFIG_TARGET_PER_DEVICE_ROOTFS=n/' ./.config
           sed -i 's/CONFIG_TARGET_ALL_PROFILES=y/CONFIG_TARGET_ALL_PROFILES=n/' ./.config
