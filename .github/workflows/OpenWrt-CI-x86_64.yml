@@ -51,7 +51,7 @@ jobs:
     - name: Pre-feeds
       run: |
         # sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-        git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
+        # git clone https://github.com/khrozelfist/3proxy-openwrt package/net/3proxy
         wget -O $(ls -d ./target/linux/x86/patches-*)/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 
     - name: Update & Install feeds
@@ -80,31 +80,6 @@ jobs:
         sed -i 's/CONFIG_TARGET_MULTI_PROFILE=y/CONFIG_TARGET_MULTI_PROFILE=n/' ./.config
         sed -i 's/CONFIG_TARGET_PER_DEVICE_ROOTFS=y/CONFIG_TARGET_PER_DEVICE_ROOTFS=n/' ./.config
         sed -i 's/CONFIG_TARGET_ALL_PROFILES=y/CONFIG_TARGET_ALL_PROFILES=n/' ./.config
-
-        # wget -O .config https://downloads.openwrt.org/releases/$ver/targets/x86/64/config.buildinfo
-        # sed -i 's/CONFIG_TARGET_MULTI_PROFILE=y/CONFIG_TARGET_MULTI_PROFILE=n/' ./.config
-        # sed -i 's/CONFIG_ALL_KMODS=y/CONFIG_ALL_KMODS=n/' ./.config
-        # sed -i 's/CONFIG_ALL_NONSHARED=y/CONFIG_ALL_NONSHARED=n/' ./.config
-        # sed -i 's/CONFIG_DEVEL=y/CONFIG_DEVEL=n/' ./.config
-        # sed -i 's/CONFIG_TARGET_PER_DEVICE_ROOTFS=y/CONFIG_TARGET_PER_DEVICE_ROOTFS=n/' ./.config
-        # sed -i 's/CONFIG_AUTOREMOVE=y/CONFIG_AUTOREMOVE=n/' ./.config
-        # sed -i 's/CONFIG_BPF_TOOLCHAIN_BUILD_LLVM=y/CONFIG_BPF_TOOLCHAIN_BUILD_LLVM=n/' ./.config
-        # sed -i 's/CONFIG_BUILDBOT=y/CONFIG_BUILDBOT=n/' ./.config
-        # sed -i 's/CONFIG_COLLECT_KERNEL_DEBUG=y/CONFIG_COLLECT_KERNEL_DEBUG=n/' ./.config
-        # sed -i 's/CONFIG_HAS_BPF_TOOLCHAIN=y/CONFIG_HAS_BPF_TOOLCHAIN=n/' ./.config
-        # sed -i 's/CONFIG_IB=y/CONFIG_IB=n/' ./.config
-        # sed -i 's/CONFIG_IMAGEOPT=y/CONFIG_IMAGEOPT=n/' ./.config
-        # sed -i 's/CONFIG_JSON_CYCLONEDX_SBOM=y/CONFIG_JSON_CYCLONEDX_SBOM=n/' ./.config
-        # sed -i 's/CONFIG_MAKE_TOOLCHAIN=y/CONFIG_MAKE_TOOLCHAIN=n/' ./.config
-        # sed -i 's/CONFIG_REPRODUCIBLE_DEBUG_INFO=y/CONFIG_REPRODUCIBLE_DEBUG_INFO=n/' ./.config
-        # sed -i 's/CONFIG_SDK=y/CONFIG_SDK=n/' ./.config
-        # sed -i 's/CONFIG_SDK_LLVM_BPF=y/CONFIG_SDK_LLVM_BPF=n/' ./.config
-        # sed -i 's/CONFIG_TARGET_ALL_PROFILES=y/CONFIG_TARGET_ALL_PROFILES=n/' ./.config
-        # sed -i 's/CONFIG_USE_LLVM_BUILD=y/CONFIG_USE_LLVM_BUILD=n/' ./.config
-        # sed -i '/CONFIG_KERNEL_BUILD_DOMAIN/d' ./.config
-        # sed -i '/CONFIG_KERNEL_BUILD_USER/d' ./.config
-        # echo CONFIG_KERNEL_BUILD_DOMAIN="Azure" >> ./.config
-        # echo CONFIG_KERNEL_BUILD_USER="OpenWrt-CI" >> ./.config
 
         cat >> .config <<EOF
         # CONFIG_VHDX_IMAGES=y
