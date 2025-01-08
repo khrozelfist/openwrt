@@ -27,9 +27,7 @@ jobs:
 
     - name: Test
       run : |
-        gost=$(curl -s https://api.github.com/repos/go-gost/gost/releases/latest | jq -r '.tag_name' | sed 's/^v//')
-        echo $gost
-        read -p "pause"
+        # read -p "pause"
 
     - name: Initialization environment
       env:
@@ -69,8 +67,7 @@ jobs:
 
         mkdir -p ./files/etc/uci-defaults
         mkdir -p ./files/usr/bin
-        gost=$(curl -si https://github.com/go-gost/gost/releases/latest | grep location | cut -d v -f 2 | tr -d '\r\n')
-        # gost=$(curl -s https://api.github.com/repos/go-gost/gost/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+        gost=$(curl -s https://api.github.com/repos/go-gost/gost/releases/latest | jq -r '.tag_name' | sed 's/^v//')
         curl -Lso /tmp/gost.tar.gz https://github.com/go-gost/gost/releases/download/v${gost}/gost_${gost}_linux_amd64v3.tar.gz
         tar xzf /tmp/gost.tar.gz -C /tmp
         mv /tmp/gost ./files/usr/bin/gost
