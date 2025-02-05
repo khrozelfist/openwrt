@@ -17,7 +17,9 @@ jobs:
       run : |
         git fetch --tags https://github.com/openwrt/openwrt.git
         git push --tags
-        echo "tag=$(git tag | sort | tail -1)" >> $GITHUB_ENV
+        TAG=$(git tag | sort | tail -1 | awk -F '-' '{print$1}')
+        git tag | grep $TAG$ || TAG=$(git tag | sort | tail -1)
+        echo "tag=$TAG" >> $GITHUB_ENV
         echo "sha=$(date | sha1sum | cut -c -8)" >> $GITHUB_ENV
 
     - name: Checkout lately
@@ -27,7 +29,7 @@ jobs:
 
     - name: Test
       run : |
-        # read -p "pause"
+        read -p "pause"
 
     - name: Initialization environment
       env:
