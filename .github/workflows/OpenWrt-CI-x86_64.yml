@@ -61,10 +61,6 @@ jobs:
     - name: Update & Install feeds
       run : |
         ./scripts/feeds update -a
-        
-        # git clone https://github.com/pymumu/openwrt-smartdns ./feeds/packages/net/smartdns/
-        # git clone https://github.com/pymumu/luci-app-smartdns ./feeds/luci/applications/luci-app-smartdns/
-        
         ./scripts/feeds install -a
         # ./scripts/feeds install -a
 
