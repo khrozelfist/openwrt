@@ -62,9 +62,8 @@ jobs:
     - name: Update & Install feeds
       run : |
         ./scripts/feeds update -a
-        ./scripts/feeds install -a
+        ./scripts/feeds install -a -f
         # ./scripts/feeds install -a
-        ./scripts/feeds install rust
 
     - name: Post-feeds
       run : |
