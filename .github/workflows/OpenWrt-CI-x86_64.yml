@@ -62,6 +62,8 @@ jobs:
     - name: Update & Install feeds
       run : |
         ./scripts/feeds update -a
+        ./scripts/feeds install rust
+        make package/rust/host/compile V=s
         ./scripts/feeds install -a
         ./scripts/feeds install -a
 
