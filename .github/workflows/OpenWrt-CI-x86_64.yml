@@ -110,7 +110,8 @@ jobs:
         # EOF
 
         cat >> .config <<EOF
-        CONFIG_PACKAGE_rust_host=y
+        CONFIG_PACKAGE_rust=y
+        CONFIG_RUST_SCCACHE=y
         CONFIG_PACKAGE_kmod-bnx2x=y
         CONFIG_PACKAGE_kmod-mt7921e=y
         CONFIG_PACKAGE_kmod-tcp-bbr=y
