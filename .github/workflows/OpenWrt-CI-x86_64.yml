@@ -58,8 +58,6 @@ jobs:
         git clone https://github.com/pymumu/openwrt-smartdns ./package/smartdns/
         git clone https://github.com/pymumu/luci-app-smartdns ./package/luci-app-smartdns/
         wget -O $(ls -d ./target/linux/x86/patches-*)/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-        # install Rust
-        curl https://sh.rustup.rs -sSf | sh -s -- -y
 
     - name: Update & Install feeds
       run : |
