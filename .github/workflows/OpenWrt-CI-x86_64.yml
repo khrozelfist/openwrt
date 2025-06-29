@@ -63,9 +63,7 @@ jobs:
       run : |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds install rust
-        make package/rust/host/compile V=s
-        ./scripts/feeds install -a
+        # ./scripts/feeds install -a
 
     - name: Post-feeds
       run : |
@@ -112,6 +110,7 @@ jobs:
         # EOF
 
         cat >> .config <<EOF
+        CONFIG_PACKAGE_rust_host=y
         CONFIG_PACKAGE_kmod-bnx2x=y
         CONFIG_PACKAGE_kmod-mt7921e=y
         CONFIG_PACKAGE_kmod-tcp-bbr=y
@@ -192,10 +191,10 @@ jobs:
 
         make defconfig
 
-    - name: Make download
-      run : |
-        make download -j$(nproc) || make download -j1 V=s
-        rm -rf $(find ./dl/ -size -1024c)
+#   - name: Make download
+#     run : |
+#       make download -j$(nproc) || make download -j1 V=s
+#       rm -rf $(find ./dl/ -size -1024c)
 
     - name: Build firmware
       run : |
